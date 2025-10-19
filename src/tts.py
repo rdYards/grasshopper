@@ -2,6 +2,10 @@ import asyncio
 import sounddevice as sd
 import numpy as np
 import soundfile as sf
+import logging
+
+# Configure logging for this module
+logger = logging.getLogger(__name__)
 
 # AudioStream is an abstraction of Kokoro controls. Providing the following functions:
 # play: Plays audio samples.
@@ -30,7 +34,7 @@ class AudioStream:
             sample_rate (int): The sampling rate of the audio data in Hz.
         """
         if self.is_playing or self.stream is not None:
-            print("Audio is already playing")
+            logger.info("Audio is already playing")
             return
 
         loop = asyncio.get_event_loop()
@@ -67,7 +71,7 @@ class AudioStream:
         This method stops the audio playback immediately.
         """
         if self.stream and self.is_playing:
-            print("Audio stopped")
+            logger.info("Audio stopped")
             self.is_playing = False
             if self.stream is not None:
                 # Clean up stream resources
@@ -82,7 +86,7 @@ class AudioStream:
         This method pauses the current audio playback and saves the remaining samples.
         """
         if self.stream and self.is_playing:
-            print("Audio paused")
+            logger.info("Audio paused")
             self.is_playing = False  # Indicate that playing has been paused
             # Save the remaining samples before pausing
             self.samples_remaining = self.samples.copy()
@@ -96,7 +100,7 @@ class AudioStream:
         This method resumes playback from where it was paused.
         """
         if self.stream and not self.is_playing and hasattr(self, "samples_remaining"):
-            print("Audio resumed")
+            logger.info("Audio resumed")
             self.is_playing = True  # Indicate that playing is resumed
             self.samples = self.samples_remaining  # Restore samples before resuming
 
@@ -127,7 +131,7 @@ class AudioStream:
                 Defaults to "output.wav".
         """
         if len(self.samples) == 0:
-            print("No samples available to save.")
+            logger.info("No samples available to save.")
             return
 
         # Ensure that samples are formatted correctly for saving
@@ -136,5 +140,5 @@ class AudioStream:
         with sf.SoundFile(
             filename, mode="w", samplerate=self.sample_rate, channels=1
         ) as f:
-            print(f"Writing audio to {filename}...")
+            logger.info(f"Writing audio to {filename}...")
             f.write(samples_to_save)
