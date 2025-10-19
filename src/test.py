@@ -1,4 +1,5 @@
 from playsound import playsound
+from threading import Thread
 
-playsound('audio/PM_CSPH_Beeps_5.mp3')
+Thread(target=playsound, args=("audio/kill_yourself.mp3")).start()
 print("finished")
