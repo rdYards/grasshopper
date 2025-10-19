@@ -43,7 +43,7 @@ To set up the project, follow these steps:
     pip install -r requirements.txt
     ```
 3. **Kokoro Models**: 
-    If needed download the `kokoro-v1.0.onnx` model file and `voices-v1.0.bin` file, and place them in a folder named `kokoro/` within your project root.
+    You will need to download the `kokoro-v1.0.onnx` model file and `voices-v1.0.bin` file, and place them in a folder named `kokoro/` within your project root. These can be found from [Kokoro-ONNX](https://github.com/thewh1teagle/kokoro-onnx)
 4. **Ollama setup**
     Refer to [Ollama Quickstart](https://docs.ollama.com/quickstart) to install Ollama. Pull desired model, by default the project uses gemma3:4b. Pull the model by
     ```sh
