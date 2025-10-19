@@ -13,10 +13,10 @@ import os
 # Configure logging
 logging.basicConfig(
     level=logging.DEBUG,  # Set to desired logging level (DEBUG, INFO, WARNING, ERROR)
-    format='%(asctime)s - %(levelname)s - %(message)s',
+    format="%(asctime)s - %(levelname)s - %(message)s",
     handlers=[
         logging.StreamHandler()  # Outputs logs to console
-    ]
+    ],
 )
 
 logger = logging.getLogger(__name__)
@@ -64,7 +64,7 @@ def process_text(text):
     """
 
     # Check for specific phrases that trigger pre-defined responses
-    if "kill yourself" in text.lower() or "kill your self" in text.lower():
+    if "cancel now" in text.lower():
         logger.debug("Detected kill word, return back to standby")
         play(kill_yourself_audio)
         return

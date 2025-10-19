@@ -4,7 +4,7 @@
 ## Overview
 Grasshopper is a voice-activated assistant application built to be an assistant in personal RPG campaigns. This project leverages the following libraries and models for both speech-to-text (STT) and text-to-speech (TTS) functionalities, making it a robust solution for interactive conversations.
 
-The project is built to work via localhost [Ollama](https://github.com/ollama/ollama) using gemma3:4b. You can change the model if needed bu the hardcoded variable *model* found in `src/main.py`
+The project is built to work via localhost [Ollama](https://github.com/ollama/ollama) using gemma3:4b. You can change the model if needed bu the hardcoded variable **model** found in `src/main.py`
 
 ## Features
 - **Wake Word Detection**: Activates the system with specific wake words.
@@ -27,16 +27,31 @@ To set up the project, follow these steps:
     git clone https://github.com/yourusername/grasshopper.git
     cd grasshopper
     ```
-2. **Install Dependencies**:
+2. **Set up Python enviroment**
+    Create a enviroment for python. Then set it as source.
+    ```sh
+    python -m venv venv
+    source venv/bin/activate
+    ```
+    When finished you can leave the enviroment via
+    ```sh
+    deactivate
+    ```
+3. **Install Dependencies**:
     Ensure you have Python installed on your system. Then install all required libraries using:
     ```sh
     pip install -r requirements.txt
     ```
-3. **Kokoro Models**: If needd download the `kokoro-v1.0.onnx` model file and `voices-v1.0.bin` file, and place them in a folder named `kokoro/` within your project root.
+3. **Kokoro Models**: 
+    If needed download the `kokoro-v1.0.onnx` model file and `voices-v1.0.bin` file, and place them in a folder named `kokoro/` within your project root.
+4. **Ollama setup**
+    Refer to [Ollama Quickstart](https://docs.ollama.com/quickstart) to install Ollama. Pull desired model, by default the project uses gemma3:4b. Pull the model by
+    ```sh
+    ollama pull gemma3:4b
+    ```
 
 ## Usage
 Run the main application with:
-
 ```sh
 python src/main.py
 ```
@@ -46,6 +61,13 @@ Once started, the system will play a startup audio notification and listen for t
 ## Specific Commands
 - **"Cancel now"**: Cancels transcription when wakeword detected.
 - **"Shutdown now"**: Initiates a shutdown sequence for the program.
+
+## Bugs
+Currently there are a few bugs in the program if you find a solition PRs are welcomed.
+- All systems do not wait for processes to finish. If say the wakeword during audio output it will start a new session.
+- Shutdown does not work perfectly. Shutdown will require a single keybind interrupt to fully exit out.
+- No dockerfile, will implement in the future.
+- All variables are hardcoded, will update in the future.
 
 ## Audio Files Source
 All sounds used in this project were sourced from Zapsplat:
