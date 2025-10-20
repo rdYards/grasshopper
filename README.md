@@ -6,6 +6,9 @@ Grasshopper is a voice-activated assistant application built to be an assistant 
 
 The project is built to work via localhost [Ollama](https://github.com/ollama/ollama) using gemma3:4b. You can change the model if needed bu the hardcoded variable **model** found in `src/main.py`
 
+### Notice
+This project is Linux only and relies on JACK for audio systems.
+
 ## Features
 - **Wake Word Detection**: Activates the system with specific wake words.
 - **Real-Time Speech Transcription**: Converts spoken language to written text in real-time.
@@ -27,13 +30,13 @@ To set up the project, follow these steps:
     git clone https://github.com/yourusername/grasshopper.git
     cd grasshopper
     ```
-2. **Set up Python enviroment**
+2. **Set up Python enviroment**:
     Create a enviroment for python. Then set it as source.
     ```sh
     python -m venv venv
     source venv/bin/activate
     ```
-    When finished you can leave the enviroment via
+    When finished you can leave the enviroment via:
     ```sh
     deactivate
     ```
@@ -44,7 +47,7 @@ To set up the project, follow these steps:
     ```
 3. **Kokoro Models**: 
     You will need to download the `kokoro-v1.0.onnx` model file and `voices-v1.0.bin` file, and place them in a folder named `kokoro/` within your project root. These can be found from [Kokoro-ONNX](https://github.com/thewh1teagle/kokoro-onnx)
-4. **Ollama setup**
+4. **Ollama setup**:
     Refer to [Ollama Quickstart](https://docs.ollama.com/quickstart) to install Ollama. Pull desired model, by default the project uses gemma3:4b. Pull the model by
     ```sh
     ollama pull gemma3:4b
@@ -55,10 +58,9 @@ Run the main application with:
 ```sh
 python src/main.py
 ```
+Once started, the system will play a startup audio notification and listen for the wake word **grasshopper** to activate transcription and response generation. You can speak commands or queries which will be processed, responded to, and played back through TTS.
 
-Once started, the system will play a startup audio notification and listen for the wake word ("grasshopper") to activate transcription and response generation. You can speak commands or queries which will be processed, responded to, and played back through TTS.
-
-## Specific Commands
+## Specific Voice Commands
 - **"Cancel now"**: Cancels transcription when wakeword detected.
 - **"Shutdown now"**: Initiates a shutdown sequence for the program.
 
@@ -66,13 +68,14 @@ Once started, the system will play a startup audio notification and listen for t
 Currently there are a few bugs in the program if you find a solition PRs are welcomed.
 - All systems do not wait for processes to finish. If say the wakeword during audio output it will start a new session.
 - Shutdown does not work perfectly. Shutdown will require a single keybind interrupt to fully exit out.
-- No dockerfile, will implement in the future.
 - All variables are hardcoded, will update in the future.
+- Unable to load any of {libcudnn_ops.so.9.1.0, libcudnn_ops.so.9.1, libcudnn_ops.so.9, libcudnn_ops.so}
+  - I find this works if the error appears `export LD_LIBRARY_PATH=./venv/lib/python3.12/site-packages/nvidia/cudnn/lib:$LD_LIBRARY_PATH`
 
 ## Audio Files Source
 All sounds used in this project were sourced from Zapsplat:
 - [Zapsplat](https://www.zapsplat.com/)
-- Author: PMSFX [Author Profile](https://www.zapsplat.com/author/pmsfx/)
+- Author: [PMSFX](https://www.zapsplat.com/author/pmsfx/)
 
 ## License
 This project is open source and available under the MIT License.
